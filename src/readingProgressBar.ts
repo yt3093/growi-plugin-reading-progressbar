@@ -78,10 +78,7 @@ export function createReadingProgressBar(): { mount(): void; unmount(): void } {
   }
 
   function onNavigation(): void {
-    // ページ遷移後は scrollY がリセットされるため次フレームで再計算
-    requestAnimationFrame(() => {
-      scheduleUpdate();
-    });
+    scheduleUpdate();
   }
 
   function mount(): void {
