@@ -4,7 +4,6 @@
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "module": "ESNext",
     "moduleResolution": "Node",
-    "jsx": "react-jsx",
     "strict": true,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
@@ -13,6 +12,6 @@
     "noEmit": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src", "client-entry.tsx"],
+  "include": ["src", "client-entry.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
