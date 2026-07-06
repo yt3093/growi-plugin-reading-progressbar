@@ -67,7 +67,7 @@ GROWI はプラグインインストール時に **`pnpm install` も `pnpm buil
 
 GROWI が読みに行く manifest のパスは以下の順で fallback:
 
-1. `dist/.vite/manifest.json` (Vite 5 デフォルト)
+1. `dist/.vite/manifest.json` (Vite デフォルト)
 2. `dist/manifest.json` (明示設定時)
 
 `vite.config.ts` で `build.manifest: 'manifest.json'` を明示して `dist/manifest.json` に出力している。
@@ -90,6 +90,15 @@ GROWI が読みに行く manifest のパスは以下の順で fallback:
 `updateBar()` で早期 `return` するパスがある場合、`rafId = null` を関数末尾に置くと古い frameID が残り続ける。次の `scheduleUpdate` 呼び出しが `rafId !== null` でスキップされて永久に更新されなくなる。**`rafId = null` は `updateBar()` の先頭で必ず実行すること。**
 
 また Edit → View 遷移で `location.hash` のみが変わる場合、`pushState` のモンキーパッチは発火しない。`hashchange` イベントの購読が必須。さらに `body.classList` の変化を MutationObserver で検知するには `attributes: true, attributeFilter: ['class']` が必要（デフォルトの `attributes: false` では検知されない）。
+
+### 6. Vite バージョンアップ時の注意
+
+`client-entry.tsx`（`.tsx` 拡張子）のまま `@vitejs/plugin-react` を vite.config.ts から削除すると、Vite が TSX を処理できずビルドが壊れる。
+
+- `.tsx` を使い続ける場合は `@vitejs/plugin-react` を維持すること
+- React / JSX を完全に排除したい場合は、先にファイルを `.ts` に改名してから React 依存を除去する
+
+現在は `client-entry.tsx` + `@vitejs/plugin-react v6` + `vite v8` の構成で動作確認済み。
 
 ## デプロイ手順
 
